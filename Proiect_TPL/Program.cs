@@ -73,7 +73,7 @@ namespace Proiect_TPL
                                     adminrute.AddRutaFisier(ruta);
                                     break;
                                 case "B":
-                                    Ruta[] rute1 = adminRute.GetRute(out nrRute1);
+                                    Ruta[] rute1 = adminrute.GetRutaFisier(out nrRute1);
                                     CautareDupaStartR(rute1, nrRute1);
                                     break;
                                 case "N":
@@ -123,11 +123,11 @@ namespace Proiect_TPL
                                     adminBilete.AddBileteFisier(bilet);
                                     break;
                                 case "B":
-                                    Bilet[] bilet1 = adminBilet.GetBilet(out nrBilet1);
+                                    Bilet[] bilet1 = adminBilete.GetBilete(out nrBilet1);
                                     CautareDupaStart(bilet1, nrBilet1);
                                     break;
                                 case "N":
-                                    Bilet[] bilet2 = adminBilet.GetBilet(out nrBilet1);
+                                    Bilet[] bilet2 = adminBilete.GetBilete(out nrBilet1);
                                     CautareDupaDestinatie(bilet2, nrBilet1);
                                     break;
                             }
@@ -204,30 +204,38 @@ namespace Proiect_TPL
             Console.WriteLine(infoRuta);
         }
         public static void CautareDupaStartR(Ruta[] rute, int nrRute)
-        {
+        { int ok = 0;
             Console.WriteLine("\nIntroduceti punctul de start : ");
             string Start = Console.ReadLine();
             for (int contor = 0; contor < nrRute; contor++)
             {
                 if (Start == rute[contor].punctStart)
+                {
                     Console.WriteLine($"Ruta {rute[contor].punctStart} - {rute[contor].destinatie} a fost gasita");
-                else
-                    Console.WriteLine($"Punctul de start cu denumirea {Start} nu a fost gasit!!");
-
+                    ok = 1;
+                }
             }
+            if(ok==0)
+            Console.WriteLine($"Punctul de start cu denumirea {Start} nu a fost gasit!!");
+
+            
         }
         public static void CautareDupaStart(Bilet[] bilete, int nrBilete)
-        {
+        { int ok = 0;
             Console.WriteLine("\nIntroduceti punctul de start : ");
             string Start = Console.ReadLine();
             for (int contor = 0; contor < nrBilete; contor++)
             {
                 if (Start == bilete[contor].punctStart)
+                {
                     Console.WriteLine($"Ruta {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
-                else
-                    Console.WriteLine($"Punctul de start cu denumirea {Start} nu a fost gasit!!");
-
+                    ok = 1;
+                }
             }
+            if (ok==0)  
+            Console.WriteLine($"Punctul de start cu denumirea {Start} nu a fost gasit!!");
+
+            
         }
         public static void CautareDupaDestinatieR(Ruta[] rute, int nrRute)
         {
@@ -248,17 +256,21 @@ namespace Proiect_TPL
             
         }
         public static void CautareDupaDestinatie(Bilet[] bilete, int nrBilete)
-        {
+        {int ok=0;
             Console.WriteLine("\nIntroduceti desttinatia: ");
             string Destinatie = Console.ReadLine();
             for (int contor = 0; contor < nrBilete; contor++)
             {
                 if (Destinatie == bilete[contor].destinatie)
+                {
                     Console.WriteLine($"Ruta {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
-                else
-                    Console.WriteLine($"Destinatia  cu denumirea {Destinatie} nu a fost gasit!!");
-
+                    ok=1;
+                }
             }
+            if(ok==0)
+                   Console.WriteLine($"Destinatia  cu denumirea {Destinatie} nu a fost gasit!!");
+
+            
         }
         public static void AfisareRute(Ruta[] rute, int nrRute)
         {

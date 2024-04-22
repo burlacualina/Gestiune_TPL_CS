@@ -10,6 +10,7 @@ namespace Librarie_Modele
     public class Bilet
     {
         private const char SEPARATOR_PRINCIPAL_FISIER = ';';
+   
         private const int PUNCTSTART = 0;
         private const int DESTINATIE = 1;
         private const int ORASTART = 2;
@@ -56,7 +57,7 @@ namespace Librarie_Modele
 
             }
             else
-                return $"Nu exist ruta";
+                return $"Datele despre bilet nu au fost introduse! ";
         }
 
         public static Bilet[] CautareDupaPunctStart(Bilet[] bilete, string punctStartCautat)

@@ -30,5 +30,6 @@ namespace NivellStocareDate
             nrBilete = this.nrBilete;
             return bilete;
         }
+
     }
 }

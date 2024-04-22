@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Librarie_Modele
 {
     public class Ruta
-    {
+    {   
         private const char SEPARATOR_PRINCIPAL_FISIER = ';';
         private const int PUNCTSTART = 0;
         private const int DESTINATIE = 1;

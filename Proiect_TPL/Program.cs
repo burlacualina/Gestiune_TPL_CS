@@ -58,8 +58,8 @@ namespace Proiect_TPL
                                     ruta = Citire_Ruta();
                                     break;
                                 case "I":
-                                    Ruta[] rute = adminRute.GetRute(out nrRute1);
-                                    Afisare_Ruta(ruta);
+                                    Ruta[] ruteeee = adminRute.GetRute(out nrRute1);
+                                    AfisareRute(ruteeee,nrRute1);
                                     break;
                                 case "A":
                                     Ruta[] rutee = adminrute.GetRutaFisier(out nrRute1);
@@ -152,8 +152,6 @@ namespace Proiect_TPL
         }
 
 
-
-
         public static Bilet Citire_Bilet()
         {
             Console.WriteLine("INTRODUCETI DATELE: ");
@@ -217,8 +215,6 @@ namespace Proiect_TPL
             }
             if(ok==0)
             Console.WriteLine($"Punctul de start cu denumirea {Start} nu a fost gasit!!");
-
-            
         }
         public static void CautareDupaStart(Bilet[] bilete, int nrBilete)
         { int ok = 0;
@@ -255,8 +251,11 @@ namespace Proiect_TPL
 
             
         }
+
+        //de mutat in administrare 
         public static void CautareDupaDestinatie(Bilet[] bilete, int nrBilete)
-        {int ok=0;
+        {
+            int ok = 0;
             Console.WriteLine("\nIntroduceti desttinatia: ");
             string Destinatie = Console.ReadLine();
             for (int contor = 0; contor < nrBilete; contor++)
@@ -264,13 +263,13 @@ namespace Proiect_TPL
                 if (Destinatie == bilete[contor].destinatie)
                 {
                     Console.WriteLine($"Ruta {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
-                    ok=1;
+                    ok = 1;
                 }
             }
-            if(ok==0)
-                   Console.WriteLine($"Destinatia  cu denumirea {Destinatie} nu a fost gasit!!");
+            if (ok == 0)
+                Console.WriteLine($"Destinatia  cu denumirea {Destinatie} nu a fost gasit!!");
 
-            
+
         }
         public static void AfisareRute(Ruta[] rute, int nrRute)
         {

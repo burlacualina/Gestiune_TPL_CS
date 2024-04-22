@@ -36,7 +36,7 @@ namespace NivellStocareDate
                 string linieFisier;
                 nrRute = 0;
 
-                // citeste cate o linie si creaza un obiect de tip Student
+                // citeste cate o linie si creaza un obiect de tip Ruta
                 // pe baza datelor din linia citita
                 while ((linieFisier = streamReader.ReadLine()) != null)
                 {

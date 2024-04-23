@@ -6,6 +6,7 @@ using NivellStocareDate;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.IO;
 
 
 namespace Proiect_TPL
@@ -24,9 +25,16 @@ namespace Proiect_TPL
             Bilet bilet = new Bilet();
             int nrBilet1 = 0;
             Admin_Bilet adminBilet = new Admin_Bilet();
-            string numeFisierB = ConfigurationManager.AppSettings["NumeFisierB"];
-            AdministrareBilete_FisierText adminBilete = new AdministrareBilete_FisierText(numeFisierB);
 
+            string numeFisierB = ConfigurationManager.AppSettings["NumeFisierB"];
+           // AdministrareBilete_FisierText adminBilete = new AdministrareBilete_FisierText(numeFisierB);
+
+            string locatieFisierSolutie = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+
+            string caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisierB;
+
+            AdministrareBilete_FisierText adminBilete = new AdministrareBilete_FisierText(caleCompletaFisier);
+            adminBilete.GetBilete(out nrBilet1);
             do
             {
 

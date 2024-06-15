@@ -42,9 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdministrareBilete_Fisier.cs" />
+    <Compile Include="AdministrareBilete_FisierBinar.cs" />
+    <Compile Include="AdministrareRute_FisierBinar.cs" />
     <Compile Include="AdministrareRute_FisierText.cs" />
     <Compile Include="Admin_Bilet.cs" />
     <Compile Include="Admin_Rute.cs" />
+    <Compile Include="IStocareData.cs" />
+    <Compile Include="IStocareDataRuta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

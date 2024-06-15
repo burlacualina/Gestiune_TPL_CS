@@ -47,14 +47,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="BiletAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="BiletAdmin.Designer.cs">
+      <DependentUpon>BiletAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainIcon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainIcon.Designer.cs">
+      <DependentUpon>MainIcon.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RutaAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RutaAdmin.Designer.cs">
+      <DependentUpon>RutaAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StocareFactory.cs" />
+    <EmbeddedResource Include="BiletAdmin.resx">
+      <DependentUpon>BiletAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainIcon.resx">
+      <DependentUpon>MainIcon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -64,6 +83,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RutaAdmin.resx">
+      <DependentUpon>RutaAdmin.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

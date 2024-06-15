@@ -7,7 +7,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.IO;
-
+using Librarie_Modele.Enumerari;
 
 namespace Proiect_TPL
 {
@@ -15,7 +15,7 @@ namespace Proiect_TPL
     {
         static void Main()
         {
-            Ruta ruta = new Ruta();
+            Bilet Bilet = new Bilet();
             int nrRute1 = 0;
             Admin_Rute adminRute = new Admin_Rute();
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
@@ -38,7 +38,7 @@ namespace Proiect_TPL
             do
             {
 
-                Console.WriteLine("\nR-Rute -- B-Bilet");
+                Console.WriteLine("\nR-bilete -- B-Bilet");
                 Console.WriteLine("Introduceti optiunea: ");
                 optiune = Console.ReadLine();
 
@@ -50,42 +50,42 @@ namespace Proiect_TPL
                         do
                         {
 
-                            Console.WriteLine("C. Citire informatii rute de la tastatura");
+                            Console.WriteLine("C. Citire informatii bilete de la tastatura");
                             Console.WriteLine("I. Afisarea informatiilor citite de la consola");
-                            Console.WriteLine("A. Afisare rute din fisier");
-                            Console.WriteLine("S. Salvare ruta in vector de obiecte");
+                            Console.WriteLine("A. Afisare bilete din fisier");
+                            Console.WriteLine("S. Salvare Bilet in vector de obiecte");
                             Console.WriteLine("SF.Salvare date in fisier ");
                             Console.WriteLine("N. Cautare dupa destinatie");
                             Console.WriteLine("B:Cutare dupa punct start");
-                            Console.WriteLine("Alegeti o optiune pentru ruta:");
+                            Console.WriteLine("Alegeti o optiune pentru Bilet:");
                             optiuneR = Console.ReadLine();
                             switch (optiuneR.ToUpper())
                             {
                                 case "C":
                                     
-                                    ruta = Citire_Ruta();
+                                    Bilet = Citire_Ruta();
                                     break;
                                 case "I":
-                                    Ruta[] ruteeee = adminRute.GetRute(out nrRute1);
+                                    Bilet[] ruteeee = adminRute.GetRute(out nrRute1);
                                     AfisareRute(ruteeee,nrRute1);
                                     break;
                                 case "A":
-                                    Ruta[] rutee = adminrute.GetRutaFisier(out nrRute1);
+                                    Bilet[] rutee = adminrute.GetRutaFisier(out nrRute1);
                                     AfisareRute(rutee, nrRute1);
                                     break;
                                 case "S":
-                                    adminRute.AddRuta(ruta);
+                                    adminRute.AddRuta(Bilet);
                                     nrRute1++;
                                     break;
                                 case "SF":
-                                    adminrute.AddRutaFisier(ruta);
+                                    adminrute.AddRutaFisier(Bilet);
                                     break;
                                 case "B":
-                                    Ruta[] rute1 = adminrute.GetRutaFisier(out nrRute1);
+                                    Bilet[] rute1 = adminrute.GetRutaFisier(out nrRute1);
                                     CautareDupaStartR(rute1, nrRute1);
                                     break;
                                 case "N":
-                                    Ruta[] rute2 = adminrute.GetRutaFisier(out nrRute1);
+                                    Bilet[] rute2 = adminrute.GetRutaFisier(out nrRute1);
                                     CautareDupaDestinatieR(rute2, nrRute1);
                                     break;
                             }
@@ -169,10 +169,13 @@ namespace Proiect_TPL
             string _oraStart = Console.ReadLine();
             string _oraDest = Console.ReadLine();
             string _data = Console.ReadLine();
-
+           
             Console.WriteLine("Finalizare citire");
 
             Bilet bilete = new Bilet(_punctStart, _destinatie, _oraStart, _oraDest,_data);
+            Console.WriteLine("Alege tipul biletului: ");
+            int optiune=Convert.ToInt32(Console.ReadLine());
+            bilete.tip = (TipBilet)optiune;
             return bilete;
 
         }
@@ -186,7 +189,7 @@ namespace Proiect_TPL
             }
         }
 
-        public static Ruta Citire_Ruta()
+        public static Bilet Citire_Ruta()
         {
             Console.WriteLine("INTRODUCETI DATELE: ");
             Console.WriteLine("punctStart, destinatie,oraStart, oraDest");
@@ -196,28 +199,28 @@ namespace Proiect_TPL
             string _oraDest = Console.ReadLine();
             Console.WriteLine("Finalizare citire");
 
-            Ruta rute = new Ruta(_punctStart, _destinatie, _oraStart, _oraDest);
-            return rute;
+            Bilet bilete = new Bilet(_punctStart, _destinatie, _oraStart, _oraDest);
+            return bilete;
 
         }
-        public static void Afisare_Ruta(Ruta ruta)
+        public static void Afisare_Ruta(Bilet Bilet)
         {
-            string infoRuta = string.Format("Ruta care are punct start {0} si punct de final {1} , incepe la ora {2} si se incheie la ora {3}",
-                ruta.punctStart ?? "NECUNOSCUT",
-                ruta.destinatie ?? "NECUNOSCUT",
-                ruta.oraStart ?? "NECUNOSCUT",
-                ruta.oraDest ?? "NECUNOSCUT");
+            string infoRuta = string.Format("Bilet care are punct start {0} si punct de final {1} , incepe la ora {2} si se incheie la ora {3}",
+                Bilet.punctStart ?? "NECUNOSCUT",
+                Bilet.destinatie ?? "NECUNOSCUT",
+                Bilet.oraStart ?? "NECUNOSCUT",
+                Bilet.oraDest ?? "NECUNOSCUT");
             Console.WriteLine(infoRuta);
         }
-        public static void CautareDupaStartR(Ruta[] rute, int nrRute)
+        public static void CautareDupaStartR(Bilet[] bilete, int nrRute)
         { int ok = 0;
             Console.WriteLine("\nIntroduceti punctul de start : ");
             string Start = Console.ReadLine();
             for (int contor = 0; contor < nrRute; contor++)
             {
-                if (Start == rute[contor].punctStart)
+                if (Start == bilete[contor].punctStart)
                 {
-                    Console.WriteLine($"Ruta {rute[contor].punctStart} - {rute[contor].destinatie} a fost gasita");
+                    Console.WriteLine($"Bilet {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
                     ok = 1;
                 }
             }
@@ -232,7 +235,7 @@ namespace Proiect_TPL
             {
                 if (Start == bilete[contor].punctStart)
                 {
-                    Console.WriteLine($"Ruta {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
+                    Console.WriteLine($"Bilet {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
                     ok = 1;
                 }
             }
@@ -241,16 +244,16 @@ namespace Proiect_TPL
 
             
         }
-        public static void CautareDupaDestinatieR(Ruta[] rute, int nrRute)
+        public static void CautareDupaDestinatieR(Bilet[] bilete, int nrRute)
         {
             Console.WriteLine("\nIntroduceti desttinatia: ");
             string Destinatie = Console.ReadLine();
             int ok = 0;
             for (int contor = 0; contor < nrRute; contor++)
             {
-                if (Destinatie == rute[contor].destinatie)
+                if (Destinatie == bilete[contor].destinatie)
                 {
-                    Console.WriteLine($"Ruta {rute[contor].punctStart} - {rute[contor].destinatie} a fost gasita");
+                    Console.WriteLine($"Bilet {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
                     ok = 1;
                 }
             }
@@ -270,7 +273,7 @@ namespace Proiect_TPL
             {
                 if (Destinatie == bilete[contor].destinatie)
                 {
-                    Console.WriteLine($"Ruta {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
+                    Console.WriteLine($"Bilet {bilete[contor].punctStart} - {bilete[contor].destinatie} a fost gasita");
                     ok = 1;
                 }
             }
@@ -279,12 +282,12 @@ namespace Proiect_TPL
 
 
         }
-        public static void AfisareRute(Ruta[] rute, int nrRute)
+        public static void AfisareRute(Bilet[] bilete, int nrRute)
         {
             Console.WriteLine("Rutele  sunt:");
             for (int contor = 0; contor < nrRute; contor++)
             {
-                string infoRute = rute[contor].Info();
+                string infoRute = bilete[contor].Info();
                 Console.WriteLine(infoRute);
             }
         }

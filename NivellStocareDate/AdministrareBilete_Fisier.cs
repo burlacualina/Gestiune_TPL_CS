@@ -1,50 +1,82 @@
 ﻿using Librarie_Modele;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace NivellStocareDate
 {
-    public class AdministrareBilete_FisierText
+    public class AdministrareBilete_FisierText:IStocareDataBilet
     {
         private const int NR_MAX_BILETE = 50;
-        private string numeFisier;
+        private string numeFisierB;
 
-        public AdministrareBilete_FisierText(string numeFisier)
+        public AdministrareBilete_FisierText(string numeFisierB)
         {
-            this.numeFisier = numeFisier;
+            this.numeFisierB = numeFisierB;
             // se incearca deschiderea fisierului in modul OpenOrCreate
             // astfel incat sa fie creat daca nu exista
-            Stream streamFisierText = File.Open(numeFisier, FileMode.OpenOrCreate);
+            Stream streamFisierText = File.Open(numeFisierB, FileMode.OpenOrCreate);
             streamFisierText.Close();
         }
 
-        public void AddBileteFisier(Bilet bilete)
+        public void AddBilet(Bilet bilete)
         {
-            using (StreamWriter streamWriterFisierText = new StreamWriter(numeFisier, true))
+            using (StreamWriter streamWriterFisierText = new StreamWriter(numeFisierB, true))
             {
                 streamWriterFisierText.WriteLine(bilete.ConversieLaSir_PentruFisier());
             }
         }
 
-        public Bilet[] GetBilete(out int nrBilete)
+        public List<Bilet> GetBilete()
         {
-            Bilet[] bilete = new Bilet[NR_MAX_BILETE];
+            List<Bilet> bilete = new List<Bilet>();
 
             // instructiunea 'using' va apela streamReader.Close()
-            using (StreamReader streamReader = new StreamReader(numeFisier))
+            using (StreamReader streamReader = new StreamReader(numeFisierB))
             {
                 string linieFisier;
-                nrBilete = 0;
 
                 // citeste cate o linie si creaza un obiect de tip Bilet
                 // pe baza datelor din linia citita
                 while ((linieFisier = streamReader.ReadLine()) != null)
                 {
-                    bilete[nrBilete++] = new Bilet(linieFisier);
+                    // Adaugă un mesaj de debug pentru a vedea fiecare linie citită
+                    Console.WriteLine($"Linie citită din fișier: {linieFisier}");
+
+                    try
+                    {
+                        bilete.Add(new Bilet(linieFisier));
+                    }
+                    catch (Exception ex)
+                    {
+                        // Adaugă un mesaj de debug pentru a vedea dacă apare vreo eroare la conversie
+                        Console.WriteLine($"Eroare la conversia liniei: {ex.Message}");
+                    }
                 }
             }
 
+            // Adaugă un mesaj de debug pentru a vedea numărul de bilete citite
+            Console.WriteLine($"Număr de bilete citite: {bilete.Count}");
+
             return bilete;
         }
+        public List<Bilet> GetBiletPunctStart(string punctStart)
+{
+    List<Bilet> bilete = new List<Bilet>();
+    using (StreamReader streamReader = new StreamReader(numeFisierB))
+    {
+        string linieFisier;
+        while ((linieFisier = streamReader.ReadLine()) != null)
+        {
+            Bilet bilet = new Bilet(linieFisier);
+            if (bilet.punctStart==punctStart)
+            {
+                bilete.Add(bilet);
+            }
+        }
+    }
+    return bilete;
+}
+
     }
 }

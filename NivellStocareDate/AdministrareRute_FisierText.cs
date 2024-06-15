@@ -1,12 +1,12 @@
 ﻿using Librarie_Modele;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace NivellStocareDate
 {
-    public class AdministrareRute_FisierText
+    public class AdministrareRute_FisierText :IStocareDataRuta
     {
-        private const int NR_MAX_RUTE = 50;
         private string numeFisier;
 
         public AdministrareRute_FisierText(string numeFisier)
@@ -18,31 +18,44 @@ namespace NivellStocareDate
             streamFisierText.Close();
         }
 
-        public void AddRutaFisier(Ruta rute)
+        public void AddRutaFisier(Ruta ruta)
         {
             using (StreamWriter streamWriterFisierText = new StreamWriter(numeFisier, true))
             {
-                streamWriterFisierText.WriteLine(rute.ConversieLaSir_PentruFisier());
+                streamWriterFisierText.WriteLine(ruta.ConversieLaSir_PentruFisier());
             }
         }
 
-        public Ruta[] GetRutaFisier(out int nrRute)
+        public List<Ruta> GetRutaFisier()
         {
-            Ruta[] rute = new Ruta[NR_MAX_RUTE];
+            List<Ruta> rute = new List<Ruta>();
 
             // instructiunea 'using' va apela streamReader.Close()
             using (StreamReader streamReader = new StreamReader(numeFisier))
             {
                 string linieFisier;
-                nrRute = 0;
 
                 // citeste cate o linie si creaza un obiect de tip Ruta
                 // pe baza datelor din linia citita
                 while ((linieFisier = streamReader.ReadLine()) != null)
                 {
-                    rute[nrRute++] = new Ruta(linieFisier);
+                    // Adaugă un mesaj de debug pentru a vedea fiecare linie citită
+                    Console.WriteLine($"Linie citită din fișier: {linieFisier}");
+
+                    try
+                    {
+                        rute.Add(new Ruta(linieFisier));
+                    }
+                    catch (Exception ex)
+                    {
+                        // Adaugă un mesaj de debug pentru a vedea dacă apare vreo eroare la conversie
+                        Console.WriteLine($"Eroare la conversia liniei: {ex.Message}");
+                    }
                 }
             }
+
+            // Adaugă un mesaj de debug pentru a vedea numărul de rute citite
+            Console.WriteLine($"Număr de rute citite: {rute.Count}");
 
             return rute;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Librarie_Modele.Enumerari;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -10,17 +11,19 @@ namespace Librarie_Modele
     public class Bilet
     {
         private const char SEPARATOR_PRINCIPAL_FISIER = ';';
-   
+
         private const int PUNCTSTART = 0;
         private const int DESTINATIE = 1;
         private const int ORASTART = 2;
         private const int ORADEST = 3;
         private const int DATA = 4;
+        private const int TIPEVENIMENT = 5;
         public string punctStart { get; set; }
         public string destinatie { get; set; }
         public string oraStart { get; set; }
         public string oraDest { get; set; }
         public string data { get; set; }
+        public TipBilet tip { get; set; }
 
         public Bilet()
         {
@@ -47,7 +50,9 @@ namespace Librarie_Modele
             this.destinatie = dateFisier[DESTINATIE];
             this.oraStart = dateFisier[ORASTART];
             this.oraDest = dateFisier[ORADEST];
-            this.data = dateFisier[DATA];   
+            this.data = dateFisier[DATA];
+            this.tip = (TipBilet)Enum.Parse(typeof(TipBilet), dateFisier[TIPEVENIMENT]);
+
         }
         public string Info()
         {
@@ -111,17 +116,13 @@ namespace Librarie_Modele
         }
         public string ConversieLaSir_PentruFisier()
         {
-            string obiectStudentPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}",
+            string obiectStudentPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}{6}{0}",
                 SEPARATOR_PRINCIPAL_FISIER,
                 (punctStart ?? " NECUNOSCUT "),
                 (destinatie ?? " NECUNOSCUT "),
-                (oraStart ?? "NECUNOSCUT"), (oraDest ?? "NECUNOSCUT"), (data??"NECUNISCUT"));
+                (oraStart ?? "NECUNOSCUT"), (oraDest ?? "NECUNOSCUT"), (data ?? "NECUNISCUT"),tip);
 
             return obiectStudentPentruFisier;
         }
     }
 }
-
-
-
-

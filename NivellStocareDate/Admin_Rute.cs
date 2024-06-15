@@ -19,9 +19,9 @@ namespace NivellStocareDate
             nrRute = 0;
         }
 
-        public void AddRuta(Ruta Rute)
+        public void AddRuta(Ruta rutee)
         { 
-            rute[nrRute] = Rute;
+            rute[nrRute] = rutee;
             nrRute++;
         }
 

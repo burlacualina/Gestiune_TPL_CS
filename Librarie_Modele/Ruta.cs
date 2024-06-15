@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace Librarie_Modele
 {
     public class Ruta
-    {   
+    {
         private const char SEPARATOR_PRINCIPAL_FISIER = ';';
         private const int PUNCTSTART = 0;
         private const int DESTINATIE = 1;
         private const int ORASTART = 2;
         private const int ORADEST = 3;
+       
         public string punctStart { get; set; }
         public string destinatie { get; set; }
         public string oraStart { get; set; }
@@ -59,7 +60,7 @@ namespace Librarie_Modele
             string obiectStudentPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}",
                 SEPARATOR_PRINCIPAL_FISIER,
                 (punctStart ?? " NECUNOSCUT "),
-                (destinatie?? " NECUNOSCUT "),
+                (destinatie ?? " NECUNOSCUT "),
                 (oraStart ?? "NECUNOSCUT"), (oraDest ?? "NECUNOSCUT"));
 
             return obiectStudentPentruFisier;
